@@ -10,3 +10,5 @@ Remembers the path to the exe and the parameters.
 I wrote this just so I didn't have to keep typing out multiple paths to files on the Linux shell in Windows 10.
 
 You will need the Windows subsystem for Linux installed, along with a Linux distribution from the Windows Store. eg Ubuntu, Debian, SUSE etc
+
+If you get an error about file not found, tick the 
