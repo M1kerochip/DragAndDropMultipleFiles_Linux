@@ -82,6 +82,6 @@ Public Class frmMain
     End Sub
 
     Private Sub LLabelGitHub_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLabelGitHub.LinkClicked
-        System.Diagnostics.Process.Start("https://docs.microsoft.com/en-us/windows/wsl/wsl-config")
+        System.Diagnostics.Process.Start("https://github.com/M1kerochip/DragAndDropMultipleFiles_Linux")
     End Sub
 End Class
