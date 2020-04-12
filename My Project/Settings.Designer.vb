@@ -137,6 +137,18 @@ Namespace My
                 Me("Disable64BitFileRedirects") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Log() As Boolean
+            Get
+                Return CType(Me("Log"),Boolean)
+            End Get
+            Set
+                Me("Log") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

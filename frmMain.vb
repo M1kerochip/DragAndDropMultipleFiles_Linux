@@ -47,7 +47,15 @@ Public Class frmMain
                     Dim str1 As String
                     Dim ch1 As String = s.Chars(0)
                     Dim fileReplaced As String = s.Replace(ch1 + s.Chars(1), "/mnt/" + ch1.ToLower).Replace("\", "/")
-                    str1 = txtLinuxCMD.Text + " " + txtLinuxArguments.Text.Replace("%FILENAMER", fileReplaced).Replace("%FILENAME", s)
+                    str1 = txtLinuxCMD.Text + " " + txtLinuxArguments.Text.Replace("%FILENAMER", ControlChars.Quote + fileReplaced + ControlChars.Quote).Replace("%FILENAME", ControlChars.Quote + s + ControlChars.Quote)
+                    If My.Settings.Log = True Then
+                        Dim f As String = Application.ExecutablePath + ".log"
+                        Dim ssx As System.IO.StreamWriter
+                        ssx = My.Computer.FileSystem.OpenTextFileWriter(f, True)
+                        ssx.WriteLine(str1)
+                        ssx.Flush()
+                        ssx.Close()
+                    End If
                     System.Diagnostics.Process.Start(cmbStartLinux.Text.Trim, str1)
                 End If
             End If
