@@ -11,4 +11,4 @@ I wrote this just so I didn't have to keep typing out multiple paths to files on
 
 You will need the Windows subsystem for Linux installed, along with a Linux distribution from the Windows Store. eg Ubuntu, Debian, SUSE etc
 
-If you get an error about file not found, tick the 
+If you get an error about file not found, tick the 'Disable 64 bit file redirection' box, since wsl.exe doesn't appear in SYSWOW64.
