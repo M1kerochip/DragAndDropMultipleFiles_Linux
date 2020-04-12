@@ -1,7 +1,7 @@
 # DragAndDropMultipleFiles_Linux
 Drag and Drop multiple files into the file list, and hit Execute to run a linux command under Windows 10 using wsl.exe
 
-![Program interface](_Screenshot.png)
+![Program interface](Screenshot.png)
 
 Requires .net 4.7
 
