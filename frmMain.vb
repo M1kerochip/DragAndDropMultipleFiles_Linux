@@ -81,7 +81,7 @@ Public Class frmMain
 
     Private Sub BtnPickEXE_Click(sender As Object, e As EventArgs) Handles btnPickEXE.Click
         If OpenFileDialogMain.ShowDialog = DialogResult.OK Then
-
+            cmbStartLinux.Text = OpenFileDialogMain.FileName
         End If
     End Sub
 

@@ -23,6 +23,7 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.txtFileList = New System.Windows.Forms.TextBox()
         Me.cmbStartLinux = New System.Windows.Forms.ComboBox()
         Me.LLabelStartLinux = New System.Windows.Forms.LinkLabel()
@@ -219,6 +220,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.cmbStartLinux)
         Me.Controls.Add(Me.txtFileList)
         Me.Controls.Add(Me.chkDisableX64FireRedirection)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Run Linux Commands via Drag & Drop"
