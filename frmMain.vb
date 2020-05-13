@@ -20,6 +20,8 @@ Public Class frmMain
         ToolTipMain.SetToolTip(chkClearListOnDrag, "Clear the list as you drag and drop in new files. Only useful to batches. Usually leave unticked.")
         ToolTipMain.SetToolTip(chkDisableX64FireRedirection, "Disables windows 64 bit file redirection. Needed for wsl.exe since it is a 32bit only exe, and doesn't exist in SYSWOW64")
         ToolTipMain.SetToolTip(txtFileList, "Drag and drop files here to process. Can also paste in a list of files eg from a text editor etc.")
+        ToolTipMain.SetToolTip(chkRunMinimized, "Start command window minimized, instead of the normal windows position.")
+        ToolTipMain.SetToolTip(chkWaitForExit, "Run commands in sequence, rather than in parallel.")
     End Sub
 
     Private Sub frmMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
@@ -46,7 +48,7 @@ Public Class frmMain
                 If cmbStartLinux.Text.Trim <> "" Then       'Check script exists
                     Dim str1 As String
                     Dim ch1 As String = s.Chars(0)
-                    Dim fileReplaced As String = s.Replace(ch1 + s.Chars(1), "/mnt/" + ch1.ToLower).Replace("\", "/")
+                    Dim fileReplaced As String = s.Replace(ch1 + s.Chars(1), "/mnt/" + ch1.ToLower).Replace("\", "/") 'Replaces C: with /mnt/ and all backslashes with forward slashes.
                     str1 = txtLinuxCMD.Text + " " + txtLinuxArguments.Text.Replace("%FILENAMER", ControlChars.Quote + fileReplaced + ControlChars.Quote).Replace("%FILENAME", ControlChars.Quote + s + ControlChars.Quote)
                     If My.Settings.Log = True Then
                         Dim f As String = Application.ExecutablePath + ".log"
@@ -56,7 +58,12 @@ Public Class frmMain
                         ssx.Flush()
                         ssx.Close()
                     End If
-                    System.Diagnostics.Process.Start(cmbStartLinux.Text.Trim, str1)
+                    Dim xp As New System.Diagnostics.Process
+                    xp.StartInfo.FileName = cmbStartLinux.Text.Trim
+                    xp.StartInfo.Arguments = str1
+                    If chkRunMinimized.Checked Then xp.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+                    xp.Start()
+                    If chkWaitForExit.Checked Then xp.WaitForExit()
                 End If
             End If
         Next

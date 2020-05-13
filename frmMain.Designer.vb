@@ -40,6 +40,8 @@ Partial Class frmMain
         Me.btnPickEXE = New System.Windows.Forms.Button()
         Me.OpenFileDialogMain = New System.Windows.Forms.OpenFileDialog()
         Me.chkDisableX64FireRedirection = New System.Windows.Forms.CheckBox()
+        Me.chkWaitForExit = New System.Windows.Forms.CheckBox()
+        Me.chkRunMinimized = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'txtFileList
@@ -51,7 +53,7 @@ Partial Class frmMain
         Me.txtFileList.Location = New System.Drawing.Point(13, 12)
         Me.txtFileList.Multiline = True
         Me.txtFileList.Name = "txtFileList"
-        Me.txtFileList.Size = New System.Drawing.Size(488, 372)
+        Me.txtFileList.Size = New System.Drawing.Size(488, 353)
         Me.txtFileList.TabIndex = 0
         '
         'cmbStartLinux
@@ -71,7 +73,7 @@ Partial Class frmMain
         '
         Me.LLabelStartLinux.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LLabelStartLinux.AutoSize = True
-        Me.LLabelStartLinux.Location = New System.Drawing.Point(12, 420)
+        Me.LLabelStartLinux.Location = New System.Drawing.Point(9, 420)
         Me.LLabelStartLinux.Name = "LLabelStartLinux"
         Me.LLabelStartLinux.Size = New System.Drawing.Size(129, 13)
         Me.LLabelStartLinux.TabIndex = 2
@@ -133,7 +135,7 @@ Partial Class frmMain
         '
         Me.chkClearListOnDrag.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chkClearListOnDrag.AutoSize = True
-        Me.chkClearListOnDrag.Location = New System.Drawing.Point(15, 394)
+        Me.chkClearListOnDrag.Location = New System.Drawing.Point(12, 371)
         Me.chkClearListOnDrag.Name = "chkClearListOnDrag"
         Me.chkClearListOnDrag.Size = New System.Drawing.Size(145, 17)
         Me.chkClearListOnDrag.TabIndex = 8
@@ -146,7 +148,7 @@ Partial Class frmMain
         Me.chkClearListOnExecute.AutoSize = True
         Me.chkClearListOnExecute.Checked = True
         Me.chkClearListOnExecute.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkClearListOnExecute.Location = New System.Drawing.Point(166, 394)
+        Me.chkClearListOnExecute.Location = New System.Drawing.Point(163, 371)
         Me.chkClearListOnExecute.Name = "chkClearListOnExecute"
         Me.chkClearListOnExecute.Size = New System.Drawing.Size(126, 17)
         Me.chkClearListOnExecute.TabIndex = 9
@@ -167,7 +169,7 @@ Partial Class frmMain
         '
         Me.LLabelGitHub.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LLabelGitHub.AutoSize = True
-        Me.LLabelGitHub.Location = New System.Drawing.Point(462, 395)
+        Me.LLabelGitHub.Location = New System.Drawing.Point(459, 372)
         Me.LLabelGitHub.Name = "LLabelGitHub"
         Me.LLabelGitHub.Size = New System.Drawing.Size(38, 13)
         Me.LLabelGitHub.TabIndex = 12
@@ -193,12 +195,32 @@ Partial Class frmMain
         '
         Me.chkDisableX64FireRedirection.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chkDisableX64FireRedirection.AutoSize = True
-        Me.chkDisableX64FireRedirection.Location = New System.Drawing.Point(298, 394)
+        Me.chkDisableX64FireRedirection.Location = New System.Drawing.Point(295, 371)
         Me.chkDisableX64FireRedirection.Name = "chkDisableX64FireRedirection"
         Me.chkDisableX64FireRedirection.Size = New System.Drawing.Size(158, 17)
         Me.chkDisableX64FireRedirection.TabIndex = 14
         Me.chkDisableX64FireRedirection.Text = "Disable 64bit File redirection"
         Me.chkDisableX64FireRedirection.UseVisualStyleBackColor = True
+        '
+        'chkWaitForExit
+        '
+        Me.chkWaitForExit.AutoSize = True
+        Me.chkWaitForExit.Location = New System.Drawing.Point(12, 394)
+        Me.chkWaitForExit.Name = "chkWaitForExit"
+        Me.chkWaitForExit.Size = New System.Drawing.Size(86, 17)
+        Me.chkWaitForExit.TabIndex = 15
+        Me.chkWaitForExit.Text = "Wait For Exit"
+        Me.chkWaitForExit.UseVisualStyleBackColor = True
+        '
+        'chkRunMinimized
+        '
+        Me.chkRunMinimized.AutoSize = True
+        Me.chkRunMinimized.Location = New System.Drawing.Point(163, 394)
+        Me.chkRunMinimized.Name = "chkRunMinimized"
+        Me.chkRunMinimized.Size = New System.Drawing.Size(145, 17)
+        Me.chkRunMinimized.TabIndex = 16
+        Me.chkRunMinimized.Text = "Run Command Minimized"
+        Me.chkRunMinimized.UseVisualStyleBackColor = True
         '
         'frmMain
         '
@@ -206,6 +228,8 @@ Partial Class frmMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(512, 535)
+        Me.Controls.Add(Me.chkRunMinimized)
+        Me.Controls.Add(Me.chkWaitForExit)
         Me.Controls.Add(Me.btnPickEXE)
         Me.Controls.Add(Me.LLabelGitHub)
         Me.Controls.Add(Me.btnClearListNow)
@@ -245,4 +269,6 @@ Partial Class frmMain
     Friend WithEvents btnPickEXE As Button
     Friend WithEvents OpenFileDialogMain As OpenFileDialog
     Friend WithEvents chkDisableX64FireRedirection As CheckBox
+    Friend WithEvents chkWaitForExit As CheckBox
+    Friend WithEvents chkRunMinimized As CheckBox
 End Class
