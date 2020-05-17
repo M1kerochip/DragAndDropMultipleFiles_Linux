@@ -4,6 +4,8 @@ Public Class frmMain
     Public Declare Function Wow64DisableWow64FsRedirection Lib "kernel32" (ByRef oldvalue As Long) As Boolean
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Me.Text = "Run Linux Commands via Drag & Drop v" + My.Application.Info.Version.ToString
+
         chkClearListOnDrag.Checked = My.Settings.ClearListOnDragAndDrop
         chkClearListOnExecute.Checked = My.Settings.ClearListOnExecute
         txtLinuxCMD.Text = My.Settings.LinuxCommand
@@ -11,6 +13,8 @@ Public Class frmMain
         cmbStartLinux.Text = My.Settings.StartLinux
         txtFileList.Text = My.Settings.FileList
         chkDisableX64FireRedirection.Checked = My.Settings.Disable64BitFileRedirects
+        chkRunMinimized.Checked = My.Settings.RunMinimized
+        chkWaitForExit.Checked = My.Settings.WaitForExit
 
         ToolTipMain.SetToolTip(txtLinuxArguments, "Place command line arguments here. %FILENAME is the variable for the files in the list above. %FILENAMER is the variable for the filename converted to linux paths")
         ToolTipMain.SetToolTip(cmbStartLinux, "Command to execute. Command line may include spaces etc.")
@@ -32,6 +36,8 @@ Public Class frmMain
         My.Settings.StartLinux = cmbStartLinux.Text
         My.Settings.FileList = txtFileList.Text
         My.Settings.Disable64BitFileRedirects = chkDisableX64FireRedirection.Checked
+        My.Settings.RunMinimized = chkRunMinimized.Checked
+        My.Settings.WaitForExit = chkWaitForExit.Checked
     End Sub
 
     Private Sub BtnClearListNow_Click(sender As Object, e As EventArgs) Handles btnClearListNow.Click
@@ -48,8 +54,11 @@ Public Class frmMain
                 If cmbStartLinux.Text.Trim <> "" Then       'Check script exists
                     Dim str1 As String
                     Dim ch1 As String = s.Chars(0)
-                    Dim fileReplaced As String = s.Replace(ch1 + s.Chars(1), "/mnt/" + ch1.ToLower).Replace("\", "/") 'Replaces C: with /mnt/ and all backslashes with forward slashes.
-                    str1 = txtLinuxCMD.Text + " " + txtLinuxArguments.Text.Replace("%FILENAMER", ControlChars.Quote + fileReplaced + ControlChars.Quote).Replace("%FILENAME", ControlChars.Quote + s + ControlChars.Quote)
+                    Dim fileReplaced As String = ControlChars.Quote + s.Replace(ch1 + s.Chars(1), "/mnt/" + ch1.ToLower).Replace("\", "/") + ControlChars.Quote 'Replaces C: with /mnt/ and all backslashes with forward slashes.
+                    Dim noext As String = ControlChars.Quote + System.IO.Path.GetDirectoryName(s) + "\" + System.IO.Path.GetFileNameWithoutExtension(s) + ControlChars.Quote 'Original file name in list, with no file extension
+                    Dim hasext As String = ControlChars.Quote + s + ControlChars.Quote 'Original file name in list
+
+                    str1 = txtLinuxCMD.Text + " " + txtLinuxArguments.Text.Replace("%FILENAMER", fileReplaced).Replace("%FILENAME", hasext).Replace("%NOEXTFILENAME", noext)
                     If My.Settings.Log = True Then
                         Dim f As String = Application.ExecutablePath + ".log"
                         Dim ssx As System.IO.StreamWriter
@@ -61,9 +70,16 @@ Public Class frmMain
                     Dim xp As New System.Diagnostics.Process
                     xp.StartInfo.FileName = cmbStartLinux.Text.Trim
                     xp.StartInfo.Arguments = str1
-                    If chkRunMinimized.Checked Then xp.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+                    If chkRunMinimized.Checked Then                                         'If check is checked:
+                        If chkRunMinimized.CheckState = CheckState.Indeterminate Then       'If check is in state 2 (grayed out)
+                            xp.StartInfo.UseShellExecute = False                            'Don't use Shell Execute
+                            xp.StartInfo.CreateNoWindow = True                              'Don't create a command output window
+                        Else
+                            xp.StartInfo.WindowStyle = ProcessWindowStyle.Minimized         'Otherwise if just normally checked, run minimized
+                        End If
+                    End If
                     xp.Start()
-                    If chkWaitForExit.Checked Then xp.WaitForExit()
+                    If chkWaitForExit.Checked Then xp.WaitForExit()                         'If Wait for exit checked, run commands in sequence, rather than all at once
                 End If
             End If
         Next

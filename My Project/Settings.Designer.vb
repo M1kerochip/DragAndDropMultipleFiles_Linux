@@ -149,6 +149,30 @@ Namespace My
                 Me("Log") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property WaitForExit() As Boolean
+            Get
+                Return CType(Me("WaitForExit"),Boolean)
+            End Get
+            Set
+                Me("WaitForExit") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property RunMinimized() As Boolean
+            Get
+                Return CType(Me("RunMinimized"),Boolean)
+            End Get
+            Set
+                Me("RunMinimized") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
